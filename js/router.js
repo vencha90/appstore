@@ -1,5 +1,4 @@
 Appstore.Router.map(function() {
-  this.route('index', { path: '/' });
   this.resource('platform', { path: '/platforms/:id' }, function() {
     this.route('app', { path: 'apps/:id' });
   });

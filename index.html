@@ -47,20 +47,20 @@
   </script>
 
   <script type="text/x-handlebars" id="index" data-template-name="index">
-    {{#each item in model}}
-      {{render 'platform' item}}
+    {{#each}}
+      {{render 'platform' this}}
     {{/each}}
   </script>
 
   <script type="text/x-handlebars" id="platform" data-template-name="platform">
-      <h1>{{title}}</h1>
-      {{render 'apps' this}}
+    <h1>{{title}}</h1>
+    {{render 'apps' this}}
   </script>
 
   <script type="text/x-handlebars" id="apps" data-template-name="apps">
-      {{#each app in apps}}
-        <h3>{{app.title}}</h3>
-      {{/each}}
+    {{#each app in apps}}
+      <h3>{{app.title}}</h3>
+    {{/each}}
   </script>
 
   <script src="js/libs/jquery-1.10.2.js"></script>
