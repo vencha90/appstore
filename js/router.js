@@ -1,6 +1,6 @@
 Appstore.Router.map(function() {
-  this.resource('platform', { path: '/platforms/:id' }, function() {
-    this.route('app', { path: 'apps/:id' });
+  this.resource('platform', { path: '/platforms/:platform_id' }, function() {
+    this.route('app', { path: 'apps/:app_id' });
   });
 });
 
@@ -18,8 +18,12 @@ Appstore.ApplicationRoute = Ember.Route.extend({
 
 Appstore.PlatformRoute = Ember.Route.extend({
   model: function(params) {
-    return this.store.find('platform', params.id);
+    return this.store.find('platform', params.platform_id);
   }
+});
+
+Appstore.PlatformAppRoute = Ember.Route.extend({
+
 });
 
 // Appstore.AppsRoute = Ember.Route.extend({
