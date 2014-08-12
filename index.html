@@ -9,12 +9,13 @@
 <body>
   <script type="text/x-handlebars">
     <h2>Welcome to the Appstore</h2>
+    {{render 'platforms' this}}
     {{outlet}}
   </script>
 
   <script type="text/x-handlebars" id="platforms" data-template-name="platforms">
     <ul>
-    {{#each itemController="platform"}}
+    {{#each}}
       <li>{{#link-to 'platform' id}}{{title}}{{/link-to}}</li>
     {{/each}}
     </ul>

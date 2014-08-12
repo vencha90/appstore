@@ -1,7 +1,13 @@
 App.Router.map(function() {
-  this.resource('platforms', { path: '/' });
-  this.resource('platform', { path: '/platform/:id' });
+  this.route('index', { path: '/'} );
+  this.resource('platform', { path: '/platforms/:id' } );
 });
+
+App.ApplicationRoute = Ember.Route.extend({
+  model: function() {
+    return this.store.findAll('platform');
+  }
+})
 
 App.PlatformsRoute = Ember.Route.extend({
   model: function() {
