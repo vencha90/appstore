@@ -43,7 +43,15 @@
       {{/link-to}}
     {{/each}}
     </ul>
+    {{outlet}}
   </script>
+
+  <script type="text/x-handlebars" id="platform" data-template-name="platform">
+      <h1>{{title}}</h1>
+      {{#each app in apps}}
+        <h3>{{app.title}}</h3>
+      {{/each}}
+  </script>  
 
   <script src="js/libs/jquery-1.10.2.js"></script>
   <script src="js/libs/handlebars-1.1.2.js"></script>
@@ -55,6 +63,7 @@
   <script src="js/router.js"></script>
   <script src="js/controllers/platform_controller.js"></script>
   <script src="js/controllers/platforms_controller.js"></script>
+  <script src="js/models/app.js"></script>
   <script src="js/models/platform.js"></script>
 
   <!-- to activate the test runner, add the "?test" query string parameter -->
