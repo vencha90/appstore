@@ -35,7 +35,7 @@
     </div>
   </script>
 
-  <script type="text/x-handlebars" id="platforms" data-template-name="platforms">
+  <script type="text/x-handlebars" id="platforms-navbar" data-template-name="platforms">
     <ul class="nav navbar-nav">
     {{#each}}
       {{#link-to 'platform' id tagName='li'}}
@@ -46,12 +46,22 @@
     {{outlet}}
   </script>
 
+  <script type="text/x-handlebars" id="index" data-template-name="index">
+    {{#each item in model}}
+      {{render 'platform' item}}
+    {{/each}}
+  </script>
+
   <script type="text/x-handlebars" id="platform" data-template-name="platform">
       <h1>{{title}}</h1>
+      {{render 'apps' this}}
+  </script>
+
+  <script type="text/x-handlebars" id="apps" data-template-name="apps">
       {{#each app in apps}}
         <h3>{{app.title}}</h3>
       {{/each}}
-  </script>  
+  </script>
 
   <script src="js/libs/jquery-1.10.2.js"></script>
   <script src="js/libs/handlebars-1.1.2.js"></script>

@@ -9,7 +9,7 @@ Appstore.ApplicationRoute = Ember.Route.extend({
   model: function() {
     return this.store.findAll('platform');
   }
-})
+});
 
 // Appstore.PlatformsRoute = Ember.Route.extend({
 //   model: function() {
