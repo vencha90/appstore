@@ -52,11 +52,17 @@ module.exports = function(grunt) {
         src: 'Gruntfile.js'
       },
       lib_test: {
-        src: ['lib/**/*.js', 'tests/**/*.js']
+        src: ['js/**/*.js', 'tests/**/*.js']
       }
     },
     qunit: {
-      files: ['tests/**/*.html']
+      all: {
+        options: {
+          urls: [
+            'index.html?test=true',
+          ]
+        }
+      }
     },
     watch: {
       gruntfile: {
@@ -65,7 +71,7 @@ module.exports = function(grunt) {
       },
       lib_test: {
         files: '<%= jshint.lib_test.src %>',
-        tasks: ['jshint:lib_test', 'qunit']
+        tasks: ['qunit:all']
       }
     }
   });
@@ -76,8 +82,9 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-qunit');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-contrib-handlebars');
 
   // Default task.
-  grunt.registerTask('default', ['jshint', 'qunit', 'concat', 'uglify']);
+  grunt.registerTask('default', ['jshint', 'qunit', 'concat', 'uglify', 'handlebars']);
 
 };
