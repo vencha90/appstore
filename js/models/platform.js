@@ -1,8 +1,8 @@
-App.Platform = DS.Model.extend({
+Appstore.Platform = DS.Model.extend({
   title: DS.attr('string')
 });
 
-App.Platform.FIXTURES = [
+Appstore.Platform.FIXTURES = [
  { id: 'android', title: 'Android' },
  { id: 'windows', title: 'Windows' },
  { id: 'ios', title: 'iOS' }

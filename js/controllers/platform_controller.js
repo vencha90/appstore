@@ -1,3 +1,3 @@
-App.PlatformController = Ember.ObjectController.extend({
+Appstore.PlatformController = Ember.ObjectController.extend({
 
 });

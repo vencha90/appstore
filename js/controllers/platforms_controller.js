@@ -1,3 +1,3 @@
-App.PlatformsController = Ember.ArrayController.extend({
+Appstore.PlatformsController = Ember.ArrayController.extend({
 	itemController: 'platform'
 });

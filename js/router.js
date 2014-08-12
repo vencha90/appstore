@@ -1,21 +1,21 @@
-App.Router.map(function() {
+Appstore.Router.map(function() {
   this.route('index', { path: '/'} );
   this.resource('platform', { path: '/platforms/:id' } );
 });
 
-App.ApplicationRoute = Ember.Route.extend({
+Appstore.ApplicationRoute = Ember.Route.extend({
   model: function() {
     return this.store.findAll('platform');
   }
 })
 
-App.PlatformsRoute = Ember.Route.extend({
+Appstore.PlatformsRoute = Ember.Route.extend({
   model: function() {
     return this.store.findAll('platform');
   }
 });
 
-App.PlatformRoute = Ember.Route.extend({
+Appstore.PlatformRoute = Ember.Route.extend({
   model: function(params) {
   	return this.store.find('platform', params.platform_id);
   }
