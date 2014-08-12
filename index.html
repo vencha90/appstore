@@ -2,21 +2,20 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Ember Starter Kit</title>
+  <title>Appstore Test</title>
   <link rel="stylesheet" href="css/normalize.css">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
   <script type="text/x-handlebars">
-    <h2>Welcome to Ember.js</h2>
-    {{#link-to 'posts.index'}}Posts{{/link-to}}
+    <h2>Welcome to the Appstore</h2>
     {{outlet}}
   </script>
 
-  <script type="text/x-handlebars" id="index">
+  <script type="text/x-handlebars" id="platforms" data-template-name="platforms">
     <ul>
-    {{#each item in model}}
-      <li>{{item}}</li>
+    {{#each itemController="platform"}}
+      <li>{{#link-to 'platform' id}}{{title}}{{/link-to}}</li>
     {{/each}}
     </ul>
   </script>
@@ -24,10 +23,14 @@
   <script src="js/libs/jquery-1.10.2.js"></script>
   <script src="js/libs/handlebars-1.1.2.js"></script>
   <script src="js/libs/ember-1.6.1.js"></script>
+  <script src="js/libs/ember-data.js"></script>
+  <script src="js/libs/localstorage_adapter.js"></script>
+
   <script src="js/app.js"></script>
   <script src="js/router.js"></script>
-  <script src="js/controllers/posts_controller.js"></script>
-  <script src="js/models/post.js"></script>
+  <script src="js/controllers/platform_controller.js"></script>
+  <script src="js/controllers/platforms_controller.js"></script>
+  <script src="js/models/platform.js"></script>
 
   <!-- to activate the test runner, add the "?test" query string parameter -->
   <script src="tests/runner.js"></script>

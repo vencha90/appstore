@@ -1,40 +1,16 @@
 App.Router.map(function() {
-  this.resource('posts', { path: '/posts' }, function() {
-  	this.route('new');
-  });
-
-  this.resource('post', { path: '/post:id' }, function() {
-  	this.route('edit');
-  })
+  this.resource('platforms', { path: '/' });
+  this.resource('platform', { path: '/platform/:id' });
 });
 
-App.IndexRoute = Ember.Route.extend({
+App.PlatformsRoute = Ember.Route.extend({
   model: function() {
-    return;
+    return this.store.findAll('platform');
   }
 });
 
-App.PostsRoute = Ember.Route.extend({
+App.PlatformRoute = Ember.Route.extend({
   model: function(params) {
-  	return this.modelFor('posts');
+  	return this.store.find('platform', params.platform_id);
   }
-});
-
-App.PostsNewRoute = Ember.Route.extend({
-	model: function(params) {
-		console.log('IMPLEMENTATION PENDING');
-		return;
-	}
-});
-
-App.PostRoute = Ember.Route.extend({
-  model: function(params) {
-  	return this.store.find('post', params.post_id);
-  }
-});
-
-App.PostEditRoute = Ember.Route.extend({
-	model: function(params) {
-		return this.store.find('post', params.post_id);
-	}
 });

@@ -23,11 +23,13 @@ test("/", function() {
   visit("/");
 
   andThen(function() {
-    equal(find("a").text(), "Posts", "Links to posts page");
+    equal(find("a").text(), "Android", "Links to Android");
+    equal(find("a").text(), "Windows", "Links to Windows");
+    equal(find("a").text(), "iOS", "Links to iOS");
   });
 
   find('a').click();
   andThen(function() {
-    equal(currentPath(), 'posts.index', "Link to posts page is working");
+    equal(currentPath(), 'platforms/android', "Link to posts page is working");
   });
 });
