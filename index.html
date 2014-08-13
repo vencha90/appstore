@@ -26,12 +26,14 @@
           <a class="navbar-brand" href="#">Appstore</a>
         </div>
 
-        {{render 'platforms' this}}
+        {{render 'platforms' model}}
       </div>
     </nav>
 
     <div class="container">
-      {{outlet}}
+      <div class="row">
+        {{outlet}}
+      </div>
     </div>
   </script>
 
@@ -47,33 +49,42 @@
   </script>
 
   <script type="text/x-handlebars" id="index" data-template-name="index">
-    <div class="col-xs-4 panel">
       {{#each}}
         {{render 'platform' this}}
       {{/each}}
-    </div>
-    <div class="col-xs-8 panel">
-      {{render 'app' this}}
-    </div>
   </script>
 
   <script type="text/x-handlebars" id="platform" data-template-name="platform">
-    <h1>{{title}}</h1>
-    {{render 'apps' this}}
-    {{outlet}}
+    <div class="col-lg-4 col-md-6 col-xs-12">
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <h1>{{title}}</h1>
+          {{render 'apps' model}}
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-8 col-md-6 col-xs-12">
+      {{outlet}}
+    </div>
   </script>
 
   <script type="text/x-handlebars" id="apps" data-template-name="apps">
     <ul class="list-group">
     {{#each app in apps}}
-      {{#link-to 'platform.app' app.platform app tagName='li' class="list-group-item"}}
-        {{app.title}}
+      {{#link-to 'platform.app' app.platform app}}
+        {{#link-to 'platform.app' app.platform app tagName='li' class="list-group-item"}}
+          {{app.title}}
+        {{/link-to}}
       {{/link-to}}
     {{/each}}
   </script>
 
   <script type="text/x-handlebars" id="app" data-template-name="platform/app">
-    {{description}}
+    <div class="panel panel-default">
+      <div class="panel-body">
+        {{description}}
+      </div>
+    </div>
   </script>
 
   <script src="js/libs/jquery-1.10.2.js"></script>
