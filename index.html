@@ -36,6 +36,7 @@
   </script>
 
   <script type="text/x-handlebars" id="platforms-navbar" data-template-name="platforms">
+    {{!-- TODO CLEARLY MARK AS NAV --}}
     <ul class="nav navbar-nav">
     {{#each}}
       {{#link-to 'platform' this tagName='li'}}
@@ -43,19 +44,14 @@
       {{/link-to}}
     {{/each}}
     </ul>
-    {{outlet}}
   </script>
 
-  <script type="text/x-handlebars" id="index" data-template-name="index">
-      {{#each}}
-          {{render 'platform' this}}
-      {{/each}}
-  </script>
-
-  <script type="text/x-handlebars" id="platform" data-template-name="platform">
+  <script type="text/x-handlebars" id="index" data-template-name="apps">
     <div class="row">
       <div class="col-lg-4 col-md-6 col-xs-12">
-        {{platform-apps platform=model isPlatformPage=parentController.isPlatformPage}}
+        {{#each model in this}}
+          {{platform-apps model=model isPlatformPage=isPlatformPage}}
+        {{/each}}
       </div>
       <div class="col-lg-8 col-md-6 col-xs-12">
         {{outlet}}
@@ -63,15 +59,29 @@
     </div>
   </script>
 
-  <script type="text/x-handlebars" id="apps" data-template-name="apps">
-    {{app-links apps=apps}}
+  <script type="text/x-handlebars" id="app" data-template-name="app">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        {{description}}
+      </div>
+    </div>
+  </script>
+
+  <script type="text/x-handlebars" id="platform" data-template-name="platform">
+    <div class="row">
+      <div class="col-lg-4 col-md-6 col-xs-12">
+        {{platform-apps model=model isPlatformPage=isPlatformPage}}
+      </div>
+      <div class="col-lg-8 col-md-6 col-xs-12">
+      {{outlet}}
+    </div>
   </script>
 
   <script type="text/x-handlebars" id="components/platform-apps">
     <div class="panel panel-default">
       <div class="panel-body">
-        <h1>{{platform.title}}</h1>
-        {{render 'apps' platform}}
+        <h1>{{model.title}}</h1>
+        {{app-links apps=model.apps isPlatformPage=isPlatformPage}}
       </div>
     </div>
   </script>
@@ -80,8 +90,8 @@
     <ul class="list-group">
       {{#each app in apps}}
         {{#if isPlatformPage}}
-          {{#link-to 'platform.app' app.platform app}}
-            {{#link-to 'platform.app' app.platform app tagName='li' class="list-group-item"}}
+          {{#link-to 'platformApp' app.platform app}}
+            {{#link-to 'platformApp' app.platform app tagName='li' class="list-group-item"}}
               {{app.title}}
             {{/link-to}}
           {{/link-to}}
@@ -94,14 +104,6 @@
         {{/if}}
       {{/each}}
     </ul>
-  </script>
-
-  <script type="text/x-handlebars" id="app" data-template-name="app">
-    <div class="panel panel-default">
-      <div class="panel-body">
-        {{description}}
-      </div>
-    </div>
   </script>
 
   <script src="js/libs/jquery-1.10.2.js"></script>

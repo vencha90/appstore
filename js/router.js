@@ -1,9 +1,16 @@
 Appstore.Router.map(function() {
   this.resource('platform', { path: '/platforms/:platform_id' }, function() {
-    this.route('app', { path: 'apps/:app_id' });
+    this.resource('platformApp', { path: '/apps/:app_id' });
   });
-  this.resource('apps', { path: '/apps' });
-  this.route('app', { path: 'apps/:app_id' });
+  this.resource('apps', { path: '/apps' }, function() {
+    this.resource('app', { path: '/:app_id' });
+  });
+});
+
+Appstore.IndexRoute = Ember.Route.extend({
+  beforeModel: function() {
+    this.transitionTo('apps');
+  }
 });
 
 Appstore.ApplicationRoute = Ember.Route.extend({
@@ -15,17 +22,25 @@ Appstore.ApplicationRoute = Ember.Route.extend({
 Appstore.PlatformRoute = Ember.Route.extend({
   model: function(params) {
     return this.store.find('platform', params.platform_id);
+  },
+  setupController: function(controller, model) {
+    this._super(controller, model);
+    controller.set('isPlatformPage', true);
   }
 });
 
 Appstore.AppsRoute = Ember.Route.extend({
   model: function() {
-    return this.store.findAll('app');
+    return this.store.findAll('platform');
+  },
+  setupController: function(controller, model) {
+    this._super(controller, model);
+    controller.set('isPlatformPage', false);
   }
 });
 
 Appstore.AppRoute = Ember.Route.extend({
-  model: function() {
+  model: function(params) {
     return this.store.find('app', params.app_id);
   }
 });
