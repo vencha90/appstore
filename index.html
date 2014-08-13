@@ -30,10 +30,8 @@
       </div>
     </nav>
 
-    <div class="container">
-      <div class="row">
-        {{outlet}}
-      </div>
+    <div class="container">      
+      {{outlet}}
     </div>
   </script>
 
@@ -50,36 +48,55 @@
 
   <script type="text/x-handlebars" id="index" data-template-name="index">
       {{#each}}
-        {{render 'platform' this}}
+          {{render 'platform' this}}
       {{/each}}
   </script>
 
   <script type="text/x-handlebars" id="platform" data-template-name="platform">
-    <div class="col-lg-4 col-md-6 col-xs-12">
-      <div class="panel panel-default">
-        <div class="panel-body">
-          <h1>{{title}}</h1>
-          {{render 'apps' model}}
-        </div>
+    <div class="row">
+      <div class="col-lg-4 col-md-6 col-xs-12">
+        {{platform-apps platform=model isPlatformPage=parentController.isPlatformPage}}
       </div>
-    </div>
-    <div class="col-lg-8 col-md-6 col-xs-12">
-      {{outlet}}
+      <div class="col-lg-8 col-md-6 col-xs-12">
+        {{outlet}}
+      </div>
     </div>
   </script>
 
   <script type="text/x-handlebars" id="apps" data-template-name="apps">
-    <ul class="list-group">
-    {{#each app in apps}}
-      {{#link-to 'platform.app' app.platform app}}
-        {{#link-to 'platform.app' app.platform app tagName='li' class="list-group-item"}}
-          {{app.title}}
-        {{/link-to}}
-      {{/link-to}}
-    {{/each}}
+    {{app-links apps=apps}}
   </script>
 
-  <script type="text/x-handlebars" id="app" data-template-name="platform/app">
+  <script type="text/x-handlebars" id="components/platform-apps">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <h1>{{platform.title}}</h1>
+        {{render 'apps' platform}}
+      </div>
+    </div>
+  </script>
+
+  <script type="text/x-handlebars" id="components/app-links">
+    <ul class="list-group">
+      {{#each app in apps}}
+        {{#if isPlatformPage}}
+          {{#link-to 'platform.app' app.platform app}}
+            {{#link-to 'platform.app' app.platform app tagName='li' class="list-group-item"}}
+              {{app.title}}
+            {{/link-to}}
+          {{/link-to}}
+        {{else}}
+          {{#link-to 'app' app}}
+            {{#link-to 'app' app tagName='li' class="list-group-item"}}
+              {{app.title}}
+            {{/link-to}}
+          {{/link-to}}
+        {{/if}}
+      {{/each}}
+    </ul>
+  </script>
+
+  <script type="text/x-handlebars" id="app" data-template-name="app">
     <div class="panel panel-default">
       <div class="panel-body">
         {{description}}
@@ -99,6 +116,7 @@
   <script src="js/controllers/platforms_controller.js"></script>
   <script src="js/models/app.js"></script>
   <script src="js/models/platform.js"></script>
+  <script src="js/views/platform_app_view.js"></script>
 
   <!-- to activate the test runner, add the "?test" query string parameter -->
   <script src="tests/runner.js"></script>
