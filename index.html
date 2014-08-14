@@ -26,7 +26,7 @@
           <a class="navbar-brand" href="#">Appstore</a>
         </div>
 
-        {{render 'platforms' model}}
+        {{partial 'navigation'}}
       </div>
     </nav>
 
@@ -35,8 +35,7 @@
     </div>
   </script>
 
-  <script type="text/x-handlebars" id="platforms-navbar" data-template-name="platforms">
-    {{!-- TODO CLEARLY MARK AS NAV --}}
+  <script type="text/x-handlebars" id="navigation" data-template-name="_navigation">
     <ul class="nav navbar-nav">
     {{#each}}
       {{#link-to 'platform' this tagName='li'}}
@@ -46,11 +45,11 @@
     </ul>
   </script>
 
-  <script type="text/x-handlebars" id="index" data-template-name="apps">
+  <script type="text/x-handlebars" id="apps" data-template-name="apps">
     <div class="row">
       <div class="col-lg-4 col-md-6 col-xs-12">
         {{#each model in this}}
-          {{platform-apps model=model isPlatformPage=isPlatformPage}}
+          {{partial 'platformApps'}}
         {{/each}}
       </div>
       <div class="col-lg-8 col-md-6 col-xs-12">
@@ -70,40 +69,36 @@
   <script type="text/x-handlebars" id="platform" data-template-name="platform">
     <div class="row">
       <div class="col-lg-4 col-md-6 col-xs-12">
-        {{platform-apps model=model isPlatformPage=isPlatformPage}}
+        {{partial 'platformApps'}}
       </div>
       <div class="col-lg-8 col-md-6 col-xs-12">
       {{outlet}}
     </div>
   </script>
 
-  <script type="text/x-handlebars" id="components/platform-apps">
+  <script type="text/x-handlebars" id="_platformApps" data-template-name="_platformApps">
     <div class="panel panel-default">
       <div class="panel-body">
         <h1>{{model.title}}</h1>
-        {{app-links apps=model.apps isPlatformPage=isPlatformPage}}
+        <ul class="list-group">
+          {{#each app in model.apps}}
+            {{#if isPlatformPage}}
+              {{#link-to 'platformApp' app.platform app}}
+                {{#link-to 'platformApp' app.platform app tagName='li' class="list-group-item"}}
+                  {{app.title}}
+                {{/link-to}}
+              {{/link-to}}
+            {{else}}
+              {{#link-to 'app' app}}
+                {{#link-to 'app' app tagName='li' class="list-group-item"}}
+                  {{app.title}}
+                {{/link-to}}
+              {{/link-to}}
+            {{/if}}
+          {{/each}}
+        </ul>
       </div>
     </div>
-  </script>
-
-  <script type="text/x-handlebars" id="components/app-links">
-    <ul class="list-group">
-      {{#each app in apps}}
-        {{#if isPlatformPage}}
-          {{#link-to 'platformApp' app.platform app}}
-            {{#link-to 'platformApp' app.platform app tagName='li' class="list-group-item"}}
-              {{app.title}}
-            {{/link-to}}
-          {{/link-to}}
-        {{else}}
-          {{#link-to 'app' app}}
-            {{#link-to 'app' app tagName='li' class="list-group-item"}}
-              {{app.title}}
-            {{/link-to}}
-          {{/link-to}}
-        {{/if}}
-      {{/each}}
-    </ul>
   </script>
 
   <script src="js/libs/jquery-1.10.2.js"></script>
