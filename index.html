@@ -47,14 +47,12 @@
 
   <script type="text/x-handlebars" id="apps" data-template-name="apps">
     <div class="row">
-      <div class="col-lg-4 col-md-6 col-xs-12">
-        {{#each model in this}}
-          {{partial 'platformApps'}}
-        {{/each}}
-      </div>
-      <div class="col-lg-8 col-md-6 col-xs-12">
-        {{outlet}}
-      </div>
+      {{#each model in this}}
+        {{partial 'platformApps'}}
+      {{/each}}
+    </div>
+    <div class="row">
+      {{outlet}}
     </div>
   </script>
 
@@ -68,35 +66,36 @@
 
   <script type="text/x-handlebars" id="platform" data-template-name="platform">
     <div class="row">
-      <div class="col-lg-4 col-md-6 col-xs-12">
-        {{partial 'platformApps'}}
-      </div>
+      {{partial 'platformApps'}}
       <div class="col-lg-8 col-md-6 col-xs-12">
-      {{outlet}}
+        {{outlet}}
+      </div>
     </div>
   </script>
 
   <script type="text/x-handlebars" id="_platformApps" data-template-name="_platformApps">
-    <div class="panel panel-default">
-      <div class="panel-body">
-        <h1>{{model.title}}</h1>
-        <ul class="list-group">
-          {{#each app in model.apps}}
-            {{#if isPlatformPage}}
-              {{#link-to 'platformApp' app.platform app}}
-                {{#link-to 'platformApp' app.platform app tagName='li' class="list-group-item"}}
-                  {{app.title}}
+    <div class="col-lg-4 col-md-6 col-xs-12">
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <h1>{{model.title}}</h1>
+          <ul class="list-group">
+            {{#each app in model.apps}}
+              {{#if isPlatformPage}}
+                {{#link-to 'platformApp' model app}}
+                  {{#link-to 'platformApp' model app tagName='li' class="list-group-item"}}
+                    {{app.title}}
+                  {{/link-to}}
                 {{/link-to}}
-              {{/link-to}}
-            {{else}}
-              {{#link-to 'app' app}}
-                {{#link-to 'app' app tagName='li' class="list-group-item"}}
-                  {{app.title}}
+              {{else}}
+                {{#link-to 'app' app}}
+                  {{#link-to 'app' app tagName='li' class="list-group-item"}}
+                    {{app.title}}
+                  {{/link-to}}
                 {{/link-to}}
-              {{/link-to}}
-            {{/if}}
-          {{/each}}
-        </ul>
+              {{/if}}
+            {{/each}}
+          </ul>
+        </div>
       </div>
     </div>
   </script>
@@ -109,6 +108,8 @@
 
   <script src="js/application.js"></script>
   <script src="js/router.js"></script>
+  <script src="js/controllers/app_controller.js"></script>
+  <script src="js/controllers/apps_controller.js"></script>
   <script src="js/controllers/platform_controller.js"></script>
   <script src="js/controllers/platforms_controller.js"></script>
   <script src="js/models/app.js"></script>
