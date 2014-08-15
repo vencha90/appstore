@@ -1,3 +1,5 @@
 Appstore.AppsController = Ember.ArrayController.extend({
-	itemController: 'app'
+  itemController: 'app',
+  sortProperties: ['likes'],
+  sortAscending: false
 });

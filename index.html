@@ -45,15 +45,60 @@
     </ul>
   </script>
 
+  <script type="text/x-handlebars" id="apps" data-template-name="platforms">
+    <div class="row">
+      {{#each platform in model}}
+        {{render 'platform' platform}}
+      {{/each}}
+      <div class="col-lg-12 col-md-6 col-xs-12">
+        {{outlet 'appDetails'}}
+      </div>
+    </div>
+  </script>
+
+  <script type="text/x-handlebars" id="platform" data-template-name="platform">
+    <div class="col-lg-4 col-md-6 col-xs-12">
+      <div class="panel panel-default">
+        <div class="panel panel-body">
+          <h1>{{model.title}}</h1>
+          {{render 'apps' model.apps}}
+        </div>
+      </div>
+    </div>
+  </script>
+
   <script type="text/x-handlebars" id="apps" data-template-name="apps">
     <div class="row">
-      {{#each model in this}}
-        {{partial 'platformApps'}}
-      {{/each}}
+      <ul class="list-group">
+        {{#each app in controller}}
+          {{partial 'appLinks'}}
+        {{/each}}
+      </ul>
     </div>
-    <div class="row">
-      {{outlet}}
-    </div>
+  </script>
+
+  <script type="text/x-handlebars" id="_appsDetails" data-template-name="_appLinks">
+    {{#if isPlatformPage}}
+      {{#link-to 'platformApp' app.platform app}}
+        {{#link-to 'platformApp' app.platform app tagName='li' class="list-group-item"}}
+          {{partial 'appLinkTitle'}}
+        {{/link-to}}
+      {{/link-to}}
+    {{else}}
+      {{#link-to 'app' app (query-params anchor='app-details')}}
+        {{#link-to 'app' app (query-params anchor='app-details') tagName='li' class="list-group-item"}}
+          {{partial 'appLinkTitle'}}
+        {{/link-to}}
+      {{/link-to}}
+    {{/if}}
+  </script>
+
+  <script type="text/x-handlebars" id="_appTitle" data-template-name="_appLinkTitle">
+    {{app.title}}
+    <span class='pull-right'>
+      <span class="glyphicon glyphicon-thumbs-up"></span>
+      <span class="badge ">{{app.likes}}</span>
+    </span>
   </script>
 
   <script type="text/x-handlebars" id="app" data-template-name="app">
@@ -75,51 +120,6 @@
     </div>
   </script>
 
-  <script type="text/x-handlebars" id="platform" data-template-name="platform">
-    <div class="row">
-      {{partial 'platformApps'}}
-      <div class="col-lg-8 col-md-6 col-xs-12">
-        {{outlet}}
-      </div>
-    </div>
-  </script>
-
-  <script type="text/x-handlebars" id="_platformApps" data-template-name="_platformApps">
-    <div class="col-lg-4 col-md-6 col-xs-12">
-      <div class="panel panel-default">
-        <div class="panel-body">
-          <h1>{{model.title}}</h1>
-          <ul class="list-group">
-            {{#each app in model.apps}}
-              {{#if isPlatformPage}}
-                {{#link-to 'platformApp' model app}}
-                  {{#link-to 'platformApp' model app tagName='li' class="list-group-item"}}
-                    {{partial 'appDetails'}}
-                  {{/link-to}}
-                {{/link-to}}
-              {{else}}
-                {{#link-to 'app' app (query-params anchor='app-details')}}
-                  {{#link-to 'app' app (query-params anchor='app-details') tagName='li' class="list-group-item"}}
-                    {{partial 'appDetails'}}
-                  {{/link-to}}
-                {{/link-to}}
-              {{/if}}
-            {{/each}}
-          </ul>
-        </div>
-      </div>
-    </div>
-  </script>
-
-  <script type="text/x-handlebars" id="_appDetails" data-template-name="_appDetails">
-    {{app.title}}
-    <span class='pull-right'>
-      <span class="glyphicon glyphicon-thumbs-up"></span>
-      <span class="badge ">{{app.likes}}</span>
-    </span>
-  </script>
-
-
   <script src="js/libs/jquery-1.10.2.js"></script>
   <script src="js/libs/handlebars.js"></script>
   <script src="js/libs/ember.js"></script>
@@ -134,8 +134,8 @@
   <script src="js/controllers/platforms_controller.js"></script>
   <script src="js/models/app.js"></script>
   <script src="js/models/platform.js"></script>
-  <script src="js/views/platform_app_view.js"></script>
   <script src="js/views/app_view.js"></script>
+  <script src="js/views/platform_app_view.js"></script>
 
   <!-- to activate the test runner, add the "?test" query string parameter -->
   <script src="tests/runner.js"></script>
