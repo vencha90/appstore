@@ -45,6 +45,6 @@ Appstore.AppRoute = Ember.Route.extend({
   },
   setupController: function(controller, model, queryParams) {
     this._super(controller, model);
-    controller.set('anchor', queryParams.anchor);
+    controller.set('anchor', 'app-details');
   }
 });

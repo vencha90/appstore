@@ -58,7 +58,7 @@
 
   <script type="text/x-handlebars" id="app" data-template-name="app">
     <div class="panel panel-default">
-      <div class="panel-body" id="app-description">
+      <div class="panel-body" id="app-details">
         {{description}}
       </div>
     </div>
@@ -87,8 +87,8 @@
                   {{/link-to}}
                 {{/link-to}}
               {{else}}
-                {{#link-to 'app' app (query-params anchor='app-description')}}
-                  {{#link-to 'app' app (query-params anchor='app-description') tagName='li' class="list-group-item"}}
+                {{#link-to 'app' app (query-params anchor='app-details')}}
+                  {{#link-to 'app' app (query-params anchor='app-details') tagName='li' class="list-group-item"}}
                     {{app.title}}
                   {{/link-to}}
                 {{/link-to}}
@@ -115,6 +115,7 @@
   <script src="js/models/app.js"></script>
   <script src="js/models/platform.js"></script>
   <script src="js/views/platform_app_view.js"></script>
+  <script src="js/views/app_view.js"></script>
 
   <!-- to activate the test runner, add the "?test" query string parameter -->
   <script src="tests/runner.js"></script>
