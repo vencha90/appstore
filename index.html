@@ -59,7 +59,18 @@
   <script type="text/x-handlebars" id="app" data-template-name="app">
     <div class="panel panel-default">
       <div class="panel-body" id="app-details">
-        {{description}}
+        <p>
+          {{description}}
+        </p>
+        <div>
+          <span class="label label-default">Likes: </span>
+          <span class="label label-info ">{{likes}}</span>
+          {{#if liked}}
+            <button type="button" class="btn btn-warning" {{action 'like'}}>UNLIKE THIS APP</button>
+          {{else}}
+            <button type="button" class="btn btn-primary" {{action 'like'}}>LIKE THIS APP</button>
+          {{/if}}
+        </div>
       </div>
     </div>
   </script>
@@ -83,13 +94,13 @@
               {{#if isPlatformPage}}
                 {{#link-to 'platformApp' model app}}
                   {{#link-to 'platformApp' model app tagName='li' class="list-group-item"}}
-                    {{app.title}}
+                    {{partial 'appDetails'}}
                   {{/link-to}}
                 {{/link-to}}
               {{else}}
                 {{#link-to 'app' app (query-params anchor='app-details')}}
                   {{#link-to 'app' app (query-params anchor='app-details') tagName='li' class="list-group-item"}}
-                    {{app.title}}
+                    {{partial 'appDetails'}}
                   {{/link-to}}
                 {{/link-to}}
               {{/if}}
@@ -99,6 +110,15 @@
       </div>
     </div>
   </script>
+
+  <script type="text/x-handlebars" id="_appDetails" data-template-name="_appDetails">
+    {{app.title}}
+    <span class='pull-right'>
+      <span class="glyphicon glyphicon-thumbs-up"></span>
+      <span class="badge ">{{app.likes}}</span>
+    </span>
+  </script>
+
 
   <script src="js/libs/jquery-1.10.2.js"></script>
   <script src="js/libs/handlebars.js"></script>
