@@ -3,7 +3,7 @@ Appstore.Router.map(function() {
     this.resource('platformApp', { path: '/apps/:app_id' });
   });
   this.resource('apps', { path: '/apps' }, function() {
-    this.resource('app', { path: '/:app_id', queryParams: ['anchor'] });
+    this.resource('app', { path: '/:app_id' });
   });
 });
 
@@ -47,7 +47,7 @@ Appstore.AppRoute = Ember.Route.extend({
   model: function(params) {
     return this.store.find('app', params.app_id);
   },
-  setupController: function(controller, model, queryParams) {
+  setupController: function(controller, model) {
     this._super(controller, model);
     controller.set('anchor', 'app-details');
   },
@@ -58,6 +58,10 @@ Appstore.AppRoute = Ember.Route.extend({
 
 Appstore.PlatformAppRoute = Ember.Route.extend({
   controllerName: 'app',
+  setupController: function(controller, model) {
+    this._super(controller, model);
+    controller.set('anchor', 'app-details');
+  },
   renderTemplate: function() {
     this.render({ outlet: 'platformAppDetails'});
   }

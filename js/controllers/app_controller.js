@@ -1,5 +1,4 @@
 Appstore.AppController = Ember.ObjectController.extend({
-  queryParams: ['anchor'],
   anchor: null,
 
   actions: {
@@ -19,7 +18,9 @@ Appstore.AppController = Ember.ObjectController.extend({
   }.property('model.likes'),
 
 	showAnchor: function() {
-    this.scrollToAnchor();
+    Ember.run.scheduleOnce('afterRender', this, function() {
+      this.scrollToAnchor();
+    });
   }.observes('anchor'),
 
   scrollToAnchor: function() {
