@@ -16,7 +16,7 @@ Appstore.IndexRoute = Ember.Route.extend({
 
 Appstore.ApplicationRoute = Ember.Route.extend({
   model: function() {
-    return this.store.findAll('platform');
+    return this.store.find('platform');
   }
 });
 
@@ -26,16 +26,19 @@ Appstore.SearchRoute = Ember.Route.extend({
       return []; // no results;
     }
     var string = params.query.toLowerCase();
-    var apps = this.store.all('app'); //NOT WERKNIG WITH FIND
-
-    return apps.filter(function(app) {
-      if (app.get('title').toLowerCase().indexOf(string) >= 0) {
-        return true;
-      }
-      if (app.get('description').toLowerCase().indexOf(string) >= 0) {
-        return true;
-      }
-    });
+    var appPromise = this.store.find('app');
+    var filteredApps = appPromise.then(function(apps) {
+      return apps.filter(function(app) {
+        if (app.get('title').toLowerCase().indexOf(string) >= 0) {
+          return app;
+        }
+        if (app.get('description').toLowerCase().indexOf(string) >= 0) {
+          return app;
+        }
+      });  
+    })
+    
+    return filteredApps;
   },
 
   setupController: function(controller, model, context) {
@@ -57,7 +60,7 @@ Appstore.PlatformRoute = Ember.Route.extend({
 
 Appstore.AppsRoute = Ember.Route.extend({
   model: function() {
-    return this.store.findAll('platform');
+    return this.store.find('platform');
   },
   controllerName: 'platforms',
   setupController: function(controller, model) {
