@@ -1,5 +1,4 @@
 Appstore.AppController = Ember.ObjectController.extend({
-  needs: ['platform'],
   queryParams: ['anchor'],
   anchor: null,
 

@@ -25,7 +25,7 @@ Appstore.PlatformRoute = Ember.Route.extend({
   },
   setupController: function(controller, model) {
     this._super(controller, model);
-    controller.set('isPlatformPage', true);
+    controller.set('isPlatformRoute', true);
   }
 });
 
@@ -36,7 +36,7 @@ Appstore.AppsRoute = Ember.Route.extend({
   controllerName: 'platforms',
   setupController: function(controller, model) {
     this._super(controller, model);
-    controller.set('isPlatformPage', false);
+    this.controllerFor('platform').set('isPlatformRoute', false);
   },
   renderTemplate: function() {
     this.render('platforms');
@@ -55,3 +55,11 @@ Appstore.AppRoute = Ember.Route.extend({
     this.render({ outlet: 'appDetails'});
   }
 });
+
+Appstore.PlatformAppRoute = Ember.Route.extend({
+  controllerName: 'app',
+  renderTemplate: function() {
+    this.render({ outlet: 'platformAppDetails'});
+  }
+});
+
