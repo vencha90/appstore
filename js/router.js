@@ -1,4 +1,5 @@
 Appstore.Router.map(function() {
+  this.route('search', { path: '/search/:query' });
   this.resource('platform', { path: '/platforms/:platform_id' }, function() {
     this.resource('platformApp', { path: '/apps/:app_id' });
   });
@@ -16,6 +17,31 @@ Appstore.IndexRoute = Ember.Route.extend({
 Appstore.ApplicationRoute = Ember.Route.extend({
   model: function() {
     return this.store.findAll('platform');
+  }
+});
+
+Appstore.SearchRoute = Ember.Route.extend({
+  model: function(params) {
+    if (!params.query) {
+      return []; // no results;
+    }
+    var string = params.query.toLowerCase();
+    var apps = this.store.all('app'); //NOT WERKNIG WITH FIND
+
+    return apps.filter(function(app) {
+      if (app.get('title').toLowerCase().indexOf(string) >= 0) {
+        return true;
+      }
+      if (app.get('description').toLowerCase().indexOf(string) >= 0) {
+        return true;
+      }
+    });
+  },
+
+  setupController: function(controller, model, context) {
+    this._super(controller, model);
+    this.controllerFor('application').set('query', context.params.search.query);
+    this.controllerFor('application').set('queryField', context.params.search.query);
   }
 });
 
